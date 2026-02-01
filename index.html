@@ -701,6 +701,63 @@
                 padding-top: 30px;
             }
         }
+
+        .upcoming-updates {
+            margin-bottom: 24px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .upcoming-updates-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .upcoming-updates-header:hover {
+            background: #fafafa;
+        }
+
+        .upcoming-updates-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .upcoming-updates-arrow {
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .upcoming-updates.expanded .upcoming-updates-arrow {
+            transform: rotate(180deg);
+        }
+
+        .upcoming-updates-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+
+        .upcoming-updates.expanded .upcoming-updates-content {
+            max-height: 500px;
+        }
+
+        .upcoming-updates-body {
+            padding: 0 18px 18px;
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -711,6 +768,28 @@
                 <!-- <div style="margin-bottom: 24px;">
                     <a href="contact.html" style="color: #007AFF; text-decoration: none; font-size: 14px;">Contact</a>
                 </div> -->
+                <div class="upcoming-updates" id="upcoming-updates">
+                    <div class="upcoming-updates-header" id="upcoming-updates-toggle" role="button" aria-expanded="false" aria-controls="upcoming-updates-content">
+                        <span class="upcoming-updates-title">⭐⭐ Upcoming - Feb 26 ⭐⭐</span>
+                        <svg class="upcoming-updates-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="upcoming-updates-content" id="upcoming-updates-content">
+                        <div class="upcoming-updates-body">
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>Some minor bug fixes</li>
+                            <li>Maintain current weight option</li>
+                            <li>Gain weight option</li>
+                            <li>Custom calorie amount allowed</li>
+                            <li>Use external AI app to analyze photos (keeps it free!)</li>
+                            <li>Date of birth instead of literal age</li>
+                            <li>Imperial and metric mix up allowed</li>
+                            <li></li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
                 <h3>Lose weight the obvious way - by couting calories</h3>
                 <p class="description">
                     Track your daily calories with a super simple app. No complex features or clutter. Just whats needed.
@@ -853,6 +932,18 @@
     </div>
 
     <script>
+        // Upcoming updates collapsible
+        (function() {
+            const box = document.getElementById('upcoming-updates');
+            const header = document.getElementById('upcoming-updates-toggle');
+            if (box && header) {
+                header.addEventListener('click', function() {
+                    box.classList.toggle('expanded');
+                    header.setAttribute('aria-expanded', box.classList.contains('expanded'));
+                });
+            }
+        })();
+
         // Populate height dropdown (4ft to 7ft)
         const heightImperial = document.getElementById('height-imperial');
         for (let feet = 4; feet <= 7; feet++) {
